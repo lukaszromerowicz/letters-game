@@ -1,4 +1,4 @@
-
+package Main;
 
 import Screens.GameScreen;
 import Screens.HowToScreen;
