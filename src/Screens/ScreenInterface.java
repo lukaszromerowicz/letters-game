@@ -1,8 +1,7 @@
 package Screens;
 
-import javafx.scene.Node;
-
 public interface ScreenInterface {
-	Node draw();
+	void draw();
+	void show();
 	void setParent(MainScreen screenParent);
 }

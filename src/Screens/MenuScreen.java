@@ -4,77 +4,122 @@ import java.util.ArrayList;
 
 import Main.AssignmentTemplate;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
 
 public class MenuScreen implements ScreenInterface{
-	private MainScreen controller;
-	private GraphicsContext gc;
+	private MainScreen parent;
+	private Pane content;
+	private ArrayList<Button> menuOptions;
+	private int currentOptionIndex;
 	private EventHandler<KeyEvent> keyboardHandler = new EventHandler<KeyEvent>() 
 	{
 
 		@Override
 		public void handle(KeyEvent event) {
-			if(event.getCode() == KeyCode.ENTER) {
-				controller.changeScreen(AssignmentTemplate.GAME_SCREEN);
+			if (event.getCode() == KeyCode.ENTER) {
+				switch (currentOptionIndex) {
+						case 0 : parent.changeScreen(new GameScreen());
+						break;
+						
+						case 1 : parent.changeScreen(AssignmentTemplate.HOW_TO_SCREEN);
+						break;
+						
+						case 2 : System.exit(0);
+						break;
+				}
 			}
-			if(event.getCode() == KeyCode.S) {
-				System.out.println("A pressed.");
-				controller.changeScreen(AssignmentTemplate.HOW_TO_SCREEN);
+			if (event.getCode() == KeyCode.DOWN) {
+				if (currentOptionIndex + 1 <= menuOptions.size()-1)
+					currentOptionIndex++;
+				else
+					currentOptionIndex = 0;
+				
+				selectMenuOption();
+			}
+			if (event.getCode() == KeyCode.UP) {
+				if (currentOptionIndex-1 >= 0)
+					currentOptionIndex--;
+				else
+					currentOptionIndex = menuOptions.size()-1;
+				
+				selectMenuOption();
 			}
 		}
 		
 	};
-	private EventHandler<MouseEvent> mouseEvent = new EventHandler<MouseEvent>(){
+	
+	public MenuScreen(){
+		currentOptionIndex = 0;
+		menuOptions = new ArrayList<Button>();
+	}
 
-		@Override
-		public void handle(MouseEvent event) {
-			controller.changeScreen(AssignmentTemplate.GAME_SCREEN);
-		}
-		
-	};
-	private ArrayList<Button> buttons;
-
-
-
+	
 	@Override
-	public Node draw() {
-		Group elements = new Group();
-		Canvas canvas = new Canvas(800,600);
-		canvas.setFocusTraversable(true);
-		gc = canvas.getGraphicsContext2D();
-		gc.setFill(Color.YELLOW);
-		gc.fillRect(0,0,800,600);
+	// Draws menu screen
+	public void draw() {
 		
-		Button btn1 = new Button("New Game");
-		btn1.setMinWidth(100);
-		btn1.setLayoutY(100);
-		btn1.setLayoutX(400- (btn1.getMinWidth()/2));
-		btn1.setOnMouseClicked(mouseEvent);
+		// Initialise content pane
+		content = new Pane();
+		content.setMinSize(800,600);
 		
-		elements.getChildren().add(canvas);
-		elements.getChildren().add(btn1);
-		elements.setOnKeyPressed(keyboardHandler);
-		btn1.setOnMouseClicked(mouseEvent);
+		// Add buttons
+		Button startGame = new Button("New game");
+		startGame.setMinWidth(200);
+		startGame.setLayoutY(150);
+		startGame.setLayoutX(290);
+		startGame.getStyleClass().add("active");
+		menuOptions.add(startGame);
 		
-		return elements;
+		Button howToPlay = new Button("How to play");
+		howToPlay.setMinWidth(200);
+		howToPlay.setLayoutY(250);
+		howToPlay.setLayoutX(290);
+		menuOptions.add(howToPlay);
+		
+		Button exitGame = new Button("Exit");
+		exitGame.setMinWidth(200);
+		exitGame.setLayoutY(350);
+		exitGame.setLayoutX(290);
+		menuOptions.add(exitGame);
+		
+		content.getChildren().add(startGame);
+		content.getChildren().add(howToPlay);
+		content.getChildren().add(exitGame);
+		content.setOnKeyPressed(keyboardHandler);
+		
+		// Add styling
+		content.getStyleClass().add("menu");
+		
 	}
 
 	@Override
+	// Sets screen parent
 	public void setParent(MainScreen screenParent) {
-		// TODO Auto-generated method stub
-		controller = screenParent;
+		parent = screenParent;
+	}
+
+	@Override
+	// Shows screen
+	public void show() {
+		if (!parent.getChildren().isEmpty())
+			parent.getChildren().remove(0);
+		parent.getChildren().add(content);
+		
 	}
 	
-	private void startGame(){
-		//controller.changeScreen(screen);
+	private void selectMenuOption()
+	{
+		for (Button b : menuOptions){
+			if (b.getStyleClass().contains("active"))
+				b.getStyleClass().remove("active");
+		}
+		menuOptions.get(currentOptionIndex).getStyleClass().add("active");
 	}
+		
+	
 
 }

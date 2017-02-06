@@ -1,36 +1,47 @@
 package Screens;
 
 import Main.AssignmentTemplate;
-import javafx.scene.Group;
-import javafx.scene.Node;
-public class MainScreen extends Group implements ScreenInterface{
-	ScreenInterface activeScreen,gameScreen = null;
+import javafx.scene.layout.Pane;
+
+public class MainScreen extends Pane implements ScreenInterface{
+    // Active screen field
+    private ScreenInterface activeScreen;
 	
 	public MainScreen(ScreenInterface mainScreen){
+		// Set default active screen to menu
 		activeScreen = AssignmentTemplate.MENU_SCREEN;
 		activeScreen.setParent(this);
+		// Draw and show the screen
 		draw();
+		show();
 	}
 	
 	
 	@Override
-	public Node draw() {
-		if (!getChildren().isEmpty())
-			getChildren().remove(0);
-		getChildren().add(activeScreen.draw());
-		return activeScreen.draw();
+	// Draws the active screen
+	public void draw() {
+		activeScreen.draw();
+	}
+	
+	
+	@Override
+	// Shows the active screen
+	public void show() {
+		activeScreen.show();
 	}
 
 	@Override
 	public void setParent(MainScreen screenParent) {
-		// TODO Auto-generated method stub
-		
+		// Main screen has no parent. Do nothing
 	}
 	
+	// Changes screens
 	public void changeScreen(ScreenInterface screen){
 		activeScreen = screen;
 		activeScreen.setParent(this);
-		draw();
+		show();
 	}
+
+
 
 }
