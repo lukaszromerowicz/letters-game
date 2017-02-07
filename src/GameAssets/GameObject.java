@@ -1,12 +1,12 @@
 package GameAssets;
 
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
-public abstract class GameObject{
-	protected Node object;
+public abstract class GameObject extends ImageView{
 	
-	public Node getObject(){
-		return object;
-	};
+	public GameObject(double x, double y)
+	{
+		this.setX(x);
+		this.setY(y);
+	}
 }

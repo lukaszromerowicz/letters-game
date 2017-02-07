@@ -6,15 +6,22 @@ import javafx.scene.Node;
 public class LevelFactory implements FactoryIF{
 
 	@Override
-	public Node createPlatform(String type,int startX, int endX, int level) {
-		Platform platform;
-		if ( type == "landscape") 
-			platform = new LandscapePlatform(startX,endX,level);
-		else if (type == "wooden")
-			platform = new WoodenPlatform(startX,endX,level);
+	public GameObject createGameObject(String type, double posX, double posY) {
+		GameObject object;
+		
+		if (type == "landscape")
+			object = new LandscapePlatform(posX,posY);
+		else if (type == "landscape-center")
+			object = new LandscapeCenterPlatform(posX,posY);
+		else if (type == "water")
+			object = new LandscapeWater(posX,posY);
+		else if (type == "water-center")
+			object = new LandscapeWaterCenter(posX,posY);
+		else if (type == "cloud")
+			object = new Cloud(posX,posY);
 		else
-			platform = new Platform(startX,endX,level);
-		return platform.getObject();
+			object = new Platform(posX, posY);
+		return object;
 	}
 
 }

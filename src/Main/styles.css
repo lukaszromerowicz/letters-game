@@ -54,3 +54,28 @@
 .right-arrow-key {
   -fx-image: url('images/keys_arrow_right.png');
 }
+
+.platform {
+  -fx-image: url('../GameAssets/Images/grassMid.png');
+}
+
+.platform-center {
+  -fx-image: url('../GameAssets/Images/grassCenter.png');
+}
+
+.player{
+  -fx-image: url('../GameAssets/Images/player_walk_2.png');
+}
+
+.water {
+  -fx-image: url('../GameAssets/Images/liquidWaterTop_mid.png');
+}
+
+.water-center {
+  -fx-image: url('../GameAssets/Images/liquidWater.png');
+}
+
+.cloud {
+  -fx-image: url('../GameAssets/Images/cloud1.png');
+}
+

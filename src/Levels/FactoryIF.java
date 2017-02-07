@@ -1,7 +1,7 @@
 package Levels;
 
-import javafx.scene.Node;
+import GameAssets.GameObject;
 
 public interface FactoryIF {
-	Node createPlatform(String type, int startX, int endX, int level);
+	GameObject createGameObject(String type, double posX, double posY);
 }

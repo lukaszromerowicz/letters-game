@@ -1,8 +1,9 @@
 package GameAssets;
 
 public class LandscapePlatform extends Platform{
-	public LandscapePlatform(int startX, int endX, int level){
-		super(startX, endX, level);
-		this.getObject().getStyleClass().add("landscape-platform");
+	public LandscapePlatform(double posX, double posY){
+		super(posX, posY);
+		this.getStyleClass().add("landscape-platform");
 	}
 }
+

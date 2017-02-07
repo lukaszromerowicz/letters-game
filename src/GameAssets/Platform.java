@@ -1,11 +1,10 @@
 package GameAssets;
 
-import javafx.scene.shape.Rectangle;
-
 public class Platform extends GameObject{
-	public Platform(int startX, int endX, int level){
-		object = new Rectangle(endX-startX,10);
-		object.setTranslateX(startX);
-		object.setTranslateY(level);
+	public Platform(double posX, double posY){
+		super(posX, posY);
+		this.setFitHeight(35);
+		this.setFitWidth(35);
+		this.getStyleClass().add("platform");
 	}
 }
