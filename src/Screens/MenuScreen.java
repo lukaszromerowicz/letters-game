@@ -6,10 +6,12 @@ import Main.AssignmentTemplate;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
 
+/*
+ * Menu screen class
+ */
 public class MenuScreen implements ScreenInterface{
 	private MainScreen parent;
 	private Pane content;
@@ -17,11 +19,12 @@ public class MenuScreen implements ScreenInterface{
 	private int currentOptionIndex;
 	private EventHandler<KeyEvent> keyboardHandler = new EventHandler<KeyEvent>() 
 	{
-
 		@Override
 		public void handle(KeyEvent event) {
-			if (event.getCode() == KeyCode.ENTER) {
-				switch (currentOptionIndex) {
+			if (event.getCode() == KeyCode.ENTER) 
+			{
+				switch (currentOptionIndex) 
+				{
 						case 0 : parent.changeScreen(new GameScreen());
 						break;
 						
@@ -32,7 +35,8 @@ public class MenuScreen implements ScreenInterface{
 						break;
 				}
 			}
-			if (event.getCode() == KeyCode.DOWN) {
+			if (event.getCode() == KeyCode.DOWN) 
+			{
 				if (currentOptionIndex + 1 <= menuOptions.size()-1)
 					currentOptionIndex++;
 				else
@@ -40,7 +44,8 @@ public class MenuScreen implements ScreenInterface{
 				
 				selectMenuOption();
 			}
-			if (event.getCode() == KeyCode.UP) {
+			if (event.getCode() == KeyCode.UP) 
+			{
 				if (currentOptionIndex-1 >= 0)
 					currentOptionIndex--;
 				else
@@ -52,14 +57,19 @@ public class MenuScreen implements ScreenInterface{
 		
 	};
 	
+	/*
+	 * 
+	 */
 	public MenuScreen(){
 		currentOptionIndex = 0;
 		menuOptions = new ArrayList<Button>();
 	}
 
 	
+	/*
+	 * @see Screens.ScreenInterface#draw()
+	 */
 	@Override
-	// Draws menu screen
 	public void draw() {
 		
 		// Initialise content pane
@@ -96,14 +106,18 @@ public class MenuScreen implements ScreenInterface{
 		
 	}
 
+	/*
+	 * @see Screens.ScreenInterface#setParent(Screens.MainScreen)
+	 */
 	@Override
-	// Sets screen parent
 	public void setParent(MainScreen screenParent) {
 		parent = screenParent;
 	}
 
+	/*
+	 * @see Screens.ScreenInterface#show()
+	 */
 	@Override
-	// Shows screen
 	public void show() {
 		if (!parent.getChildren().isEmpty())
 			parent.getChildren().remove(0);
@@ -111,6 +125,18 @@ public class MenuScreen implements ScreenInterface{
 		
 	}
 	
+	/*
+	 * @see Screens.ScreenInterface#getContent()
+	 */
+	@Override
+	public Pane getContent() {
+		return content;
+	}
+		
+	
+	/*
+	 * Changes the selected menu option
+	 */
 	private void selectMenuOption()
 	{
 		for (Button b : menuOptions){
@@ -119,7 +145,5 @@ public class MenuScreen implements ScreenInterface{
 		}
 		menuOptions.get(currentOptionIndex).getStyleClass().add("active");
 	}
-		
 	
-
 }

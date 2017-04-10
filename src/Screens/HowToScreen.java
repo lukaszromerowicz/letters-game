@@ -1,6 +1,5 @@
 package Screens;
 
-
 import Main.AssignmentTemplate;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -9,33 +8,46 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
+/*
+ * How to play screen class
+ */
 public class HowToScreen implements ScreenInterface{
 	MainScreen parent;
 	Pane content;
 	private EventHandler<KeyEvent> keyboardHandler = new EventHandler<KeyEvent>() 
 	{
-
 		@Override
 		public void handle(KeyEvent event) {
 			if(event.getCode() == KeyCode.ESCAPE) {
-				System.out.println("Escape pressed");
 				parent.changeScreen(AssignmentTemplate.MENU_SCREEN);
 			}
 		}
-		
 	};
 	
+	/*
+	 * Constructor, draws the content
+	 */
 	public HowToScreen()
 	{
 		draw();
 	}
 	
+	/*
+	 * @see Screens.ScreenInterface#draw()
+	 */
 	@Override
 	public void draw() {
 		// Initialise content pane
 		content = new Pane();
 		content.setFocusTraversable(true);
 		content.setMinSize(800,600);
+		
+		// Game instructions
+		Label description = new Label();
+		description.setText("Collect all the letters to complete a word. \nThe more letters you collect the higher is the score!");
+		description.setTranslateX(200);
+		description.setTranslateY(170);
+		description.getStyleClass().add("label-small");
 		
 		// Jump instructions
 		ImageView spaceImage = new ImageView();
@@ -68,7 +80,8 @@ public class HowToScreen implements ScreenInterface{
 		moveLabel.setTranslateY(320);
 		moveLabel.getStyleClass().add("label");
 		
-		
+	
+		content.getChildren().add(description);
 		content.getChildren().add(spaceLabel);
 		content.getChildren().add(moveLabel);
 		content.getChildren().add(spaceImage);
@@ -78,18 +91,30 @@ public class HowToScreen implements ScreenInterface{
 		content.getStyleClass().add("how-to");
 	}
 
+	/*
+	 * @see Screens.ScreenInterface#setParent(Screens.MainScreen)
+	 */
 	@Override
 	public void setParent(MainScreen screenParent) {
-		// TODO Auto-generated method stub
 		parent = screenParent;
 	}
 
+	/*
+	 * @see Screens.ScreenInterface#show()
+	 */
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
 		if (!parent.getChildren().isEmpty())
 			parent.getChildren().remove(0);
 		parent.getChildren().add(content);
+	}
+
+	@Override
+	/*
+	 * @see Screens.ScreenInterface#getContent()
+	 */
+	public Pane getContent() {
+		return content;
 	}
 
 }

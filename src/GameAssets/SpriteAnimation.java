@@ -6,6 +6,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+/*
+ * External class used to create an animation from spritesheet
+ */
 public class SpriteAnimation extends Transition {
 
     private final ImageView imageView;

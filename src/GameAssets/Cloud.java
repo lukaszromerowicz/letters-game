@@ -1,5 +1,8 @@
 package GameAssets;
 
+/*
+ * Cloud object class
+ */
 public class Cloud extends GameObject{
 
 	public Cloud(double x, double y) {
